@@ -1,33 +1,96 @@
-# OCD Analytics (Upgraded)
+# 📊 Stock Market Dashboard
 
-A small Flask app to explore an OCD patient dataset, generate visual dashboards, and demo a (non-diagnostic) predictor.
+An interactive **Stock Market Analysis Dashboard** built with **Flask** and **Plotly**, deployed on **Render**, and version-controlled with **GitHub**.  
+This project allows users to upload CSV files, select stock tickers, and visualize stock price trends.
 
-## What's new
-- Safer uploads, better error handling.
-- Auto EDA: summary table, missingness, multiple plots (gender, age, ethnicity, obsession/compulsion types, Y-BOCS, duration, yearly trend, correlations).
-- Cleaned CSV download.
-- `/predict` page (demo): shows a Y-BOCS-based severity proxy if model isn't loaded.
-- JSON API: `/api/summary/<filename>` returns dataset summary.
-- `requirements.txt` added.
-- Optional `train_stub.py` to train an example sklearn Pipeline model and save `ocd_model.pkl`.
+🔗 **Live Demo:** [https://stock-marketing.onrender.com](https://stock-marketing.onrender.com)
 
-## How to run
-```bash
-pip install -r requirements.txt
-python app.py
-# visit http://localhost:2001
-```
+---
 
-## Using the predictor
-- If `ocd_model.pkl` is a scikit-learn Pipeline that accepts raw columns, the app will use it directly.
-- If your model relies on separate encoders, put them into `label_encoder.pkl` as a dict `{column_name: fitted_encoder}`.
-- If no model loads, the predictor falls back to a simple Y-BOCS severity proxy (for education only).
+## 🚀 Complete Process (From Start to Finish)
 
-## Training a quick demo model
-```
-python train_stub.py
-```
-This writes `ocd_model.pkl`. By default, it trains a classifier for **Anxiety Diagnosis** from the features in `OCD_Patient.csv`. Change the `TARGET` variable in `train_stub.py` to fit your goal.
+### 1. Create Project Folder
+D:\stock_marketing_work
 
-## Disclaimer
-This project is for education and exploration only. It is **not** a medical device and does **not** provide medical diagnosis. Always consult a licensed professional for clinical decisions.
+### 2. Create & Activate Virtual Environment
+- Windows:
+  - `python -m venv venv`
+  - `venv\Scripts\activate`
+- macOS/Linux:
+  - `python3 -m venv venv`
+  - `source venv/bin/activate`
+
+### 3. Install Dependencies
+- Install required libraries:
+  - `pip install flask plotly pandas gunicorn`
+- Export dependencies:
+  - `pip freeze > requirements.txt`
+
+### 4. Build Flask Application
+- Created `app.py` with routes:
+  - `/` → Main dashboard (CSV upload + ticker selection + charts)
+  - `/report` → Report page for extended analysis
+- Used:
+  - Flask → backend server
+  - Plotly → interactive charts
+  - Pandas → CSV data handling
+
+### 5. Add Project Files
+- `app.py` → Main Flask application  
+- `templates/` → HTML templates (dashboard, report)  
+- `static/` → CSS/JS assets  
+- `requirements.txt` → Installed dependencies  
+- `Procfile` → For Render deployment (`web: gunicorn app:app`)  
+
+### 6. Initialize Git & Push to GitHub
+- `git init`  
+- `git remote add origin https://github.com/afridmd12/stock_marketing.git`  
+- `git add .`  
+- `git commit -m "Initial commit"`  
+- `git push -u origin main`
+
+### 7. Deploy on Render
+1. Go to [Render](https://render.com)  
+2. Create a new **Web Service**  
+3. Connect GitHub repository  
+4. Add:
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `gunicorn app:app`
+5. Deploy 🚀  
+
+---
+
+## ✅ Features
+- Upload CSV with stock data  
+- Select tickers and visualize interactive charts  
+- `/report` page for extended analysis  
+- Hosted live on Render  
+
+---
+
+---
+
+## 💻 Run Locally
+1. Clone repo:  
+   `git clone https://github.com/afridmd12/stock_marketing.git`
+2. Navigate:  
+   `cd stock_marketing`
+3. Create virtual environment & activate  
+4. Install dependencies:  
+   `pip install -r requirements.txt`
+5. Run app:  
+   `python app.py`
+6. Open in browser:  
+   `http://127.0.0.1:3001`
+
+---
+
+## 🌐 Deployment
+- Hosted on **Render**
+- Live URL: [https://stock-marketing.onrender.com](https://stock-marketing.onrender.com)
+
+---
+
+## 📝 Author
+👤 Mohammed Afrid  
+📌 GitHub: [afridmd12](https://github.com/afridmd12)  
