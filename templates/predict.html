@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Predict (Demo)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <style>
+    body { padding: 2rem; }
+    .muted { color: #6c757d; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    label { font-weight: 600; }
+    input, select { font-size: 0.95rem; }
+    .card { border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">Predict (Demo)</h2>
+      <a class="btn btn-outline-primary" href="{{ url_for('index') }}">Home</a>
+    </div>
+    <p class="muted">For education only — not medical advice or diagnosis.</p>
+
+    {% if not model_available %}
+      <div class="alert alert-info">
+        Model not loaded. {% if model_error %}<strong>Error:</strong> {{ model_error }}{% endif %}
+        This page will show a simple Y-BOCS based severity proxy.
+      </div>
+    {% endif %}
+
+    <form method="post" class="card p-3">
+      <div class="grid">
+        {% for field in fields %}
+          <div>
+            <label class="form-label">{{ field }}</label>
+            <input class="form-control" type="text" name="{{ field }}" value="{{ form_values[field] if form_values else '' }}"/>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="mt-3">
+        <button class="btn btn-primary" type="submit">Predict</button>
+      </div>
+    </form>
+
+    {% if severity_proxy or model_prediction %}
+      <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title">Result</h5>
+          {% if model_prediction %}
+            <p><strong>Model prediction:</strong> {{ model_prediction }}</p>
+            {% if model_probability %}<p>Confidence (max class prob): {{ '%.2f' % model_probability }}</p>{% endif %}
+          {% endif %}
+          {% if severity_proxy %}
+            <p><strong>Y-BOCS severity proxy:</strong> {{ severity_proxy }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="alert alert-warning mt-4">
+      <strong>Disclaimer:</strong> This tool is not a medical device and does not provide a medical diagnosis. For clinical decisions, consult a licensed professional.
+    </div>
+  </div>
+</body>
+</html>

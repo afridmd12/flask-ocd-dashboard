@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  <h3>🧑 Patient Details</h3>
+  {% if patient %}
+    <table class="table table-bordered">
+      {% for key, value in patient.items() %}
+        <tr>
+          <th>{{ key }}</th>
+          <td>{{ value }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p class="alert alert-warning">{{ message }}</p>
+  {% endif %}
+  <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">⬅ Back</a>
+</div>

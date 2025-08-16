@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <h3>👥 Group Details</h3>
+
+  {% if group %}
+    <p><strong>Total:</strong> {{ summary.total }} |
+       <span class="text-danger">Positive: {{ summary.positive }}</span> |
+       <span class="text-success">Negative: {{ summary.negative }}</span></p>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          {% for col in group[0].keys() %}
+            <th>{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in group %}
+          <tr>
+            {% for val in row.values() %}
+              <td>{{ val }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="alert alert-warning">{{ message }}</p>
+  {% endif %}
+
+  <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">⬅ Back</a>
+</div>

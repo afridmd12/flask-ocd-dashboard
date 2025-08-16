@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OCD Patient Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    h1, h2 {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .plot-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .plot-card img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .table-container {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>📊 OCD Patient Dashboard</h1>
+
+  <div class="row">
+    {% for plot in plots %}
+    <div class="col-md-6">
+      <div class="plot-card">
+        <img src="{{ url_for('static', filename=plot) }}" alt="Plot">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="table-container">
+    <h2>Sample Data (first 5 rows)</h2>
+    {% for table in tables %}
+      <div class="table-responsive">
+        {{ table | safe }}
+      </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+</body>
+</html>
